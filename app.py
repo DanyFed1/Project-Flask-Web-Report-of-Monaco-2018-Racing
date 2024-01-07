@@ -23,7 +23,10 @@ def drivers():
 @app.route('/report/drivers/<driver_id>')
 def driver_info(driver_id):
     info = report_generator.get_driver_info(driver_id)
+    if not info:
+        info = {'name': 'Not Found', 'team': 'N/A', 'lap_time': 'N/A'}
     return render_template('driver_info.html', driver_info=info, driver_id=driver_id)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
