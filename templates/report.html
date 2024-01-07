@@ -1,0 +1,19 @@
+<!-- templates_old/report.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Formula 1 Q1 Report</title>
+</head>
+<body>
+    <h1>Formula 1 - Qualifying Q1 Results</h1>
+    <ul>
+        {% for driver in drivers %}
+            <li>{{ driver.position }}. {{ driver.name }} | {{ driver.team }} | {{ driver.lap_time }}</li>
+            {% if driver.eliminated %}
+                <li>------------------------------------ELIMINATED------------------------------------</li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</body>
+</html>
