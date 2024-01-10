@@ -26,6 +26,7 @@ class DriverLapInfo:
 
 class Q1Processor:
     """ A class to process the Formula 1 Q1 lap times."""
+
     def __init__(self, folder_path: str) -> None:
         """
         Initialize the Q1Processor with paths to files.
@@ -93,7 +94,7 @@ class Q1ReportGenerator:
         # Anomaly data should alway be the end of our classification.
         drivers.sort(
             key=lambda x: (
-                x.driver_lap_time == None,
+                x.driver_lap_time is None,
                 x.driver_lap_time),
             reverse=(
                 order == 'desc'))
@@ -110,10 +111,11 @@ class Q1ReportGenerator:
                 print("-" * 36 + 'ELIMINATED' + "-" * 36)
             time_str = driver.driver_lap_time
             if driver.driver_lap_time is not None:
-                print(f"{i}. {driver.driver_name:<20} | {driver.team:<30} | {time_str}")
+                print(
+                    f"{i}. {driver.driver_name:<20} | {driver.team:<30} | {time_str}")
             else:
-                print(f"{i}. {driver.driver_name:<20} | {driver.team:<30} | {'NO TIME COULD BE DETERMINED BASED ON INPUT FILES'}")
-
+                print(
+                    f"{i}. {driver.driver_name:<20} | {driver.team:<30} | {'NO TIME COULD BE DETERMINED BASED ON INPUT FILES'}")
 
     def driver_info(self, driver_name: str) -> str:
         """Retrieve information for a specific driver."""
@@ -123,35 +125,29 @@ class Q1ReportGenerator:
                 return f"{driver.driver_name:<20} | {driver.team:<30} | {time_str}"
         return f"Driver {driver_name} not found."
 
-    #Adding new methods to return everything needed for Jinja Templates
+    # Adding new methods to return everything needed for Jinja Templates
     def get_report_data(self, order='asc'):
         """Get report data in a structured format for web rendering."""
         ranked_drivers = self.rank_drivers(order)
         report_data = []
         for i, driver in enumerate(ranked_drivers, start=1):
             driver_data = {
-                'position': i,
-                'name': driver.driver_name,
-                'team': driver.team,
-                'lap_time': str(driver.driver_lap_time) if driver.driver_lap_time else "NO TIME",
-                'eliminated': (i > 15) if order == 'asc' else (i <= len(ranked_drivers) - 15)
-            }
+                'position': i, 'name': driver.driver_name, 'team': driver.team, 'lap_time': str(
+                    driver.driver_lap_time) if driver.driver_lap_time else "NO TIME", 'eliminated': (
+                    i > 15) if order == 'asc' else (
+                    i <= len(ranked_drivers) - 15)}
             report_data.append(driver_data)
         return report_data
 
     def get_all_drivers(self):
         """Get a list of all drivers with their information."""
-        return [{'code': driver.driver_init, 'name': driver.driver_name, 'team': driver.team}
-                for driver in self.processor.drivers.values()]
+        return [{'code': driver.driver_init, 'name': driver.driver_name,
+                 'team': driver.team} for driver in self.processor.drivers.values()]
 
     def get_driver_info(self, driver_init):
         """Get information for a specific driver."""
         driver = self.processor.drivers.get(driver_init)
         if driver:
-            return {
-                'name': driver.driver_name,
-                'team': driver.team,
-                'lap_time': str(driver.driver_lap_time) if driver.driver_lap_time else "NO TIME"
-            }
+            return {'name': driver.driver_name, 'team': driver.team, 'lap_time': str(
+                driver.driver_lap_time) if driver.driver_lap_time else "NO TIME"}
         return None
-

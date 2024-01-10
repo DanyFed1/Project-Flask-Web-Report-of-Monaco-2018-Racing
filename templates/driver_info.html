@@ -4,8 +4,8 @@
 
 {% block content %}
     {% if driver_info %}
-        <h2>{{ driver_info.name }}</h2>
-        <table>
+        <h2 class="text-center">{{ driver_info.name }}</h2>
+        <table class="table table-bordered">
             <tr>
                 <th>Team</th>
                 <td>{{ driver_info.team }}</td>
@@ -16,6 +16,6 @@
             </tr>
         </table>
     {% else %}
-        <p>Driver information not found.</p>
+        <p class="text-center">Driver information not found.</p>
     {% endif %}
 {% endblock %}

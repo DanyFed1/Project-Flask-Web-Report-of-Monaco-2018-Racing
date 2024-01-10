@@ -3,10 +3,10 @@
 {% block title %}Drivers List{% endblock %}
 
 {% block content %}
-    <h2>Drivers List</h2>
-    <ul>
+    <h2 class="text-center">Drivers List</h2>
+    <ul class="list-group">
         {% for driver in drivers %}
-            <li>
+            <li class="list-group-item">
                 <a href="{{ url_for('driver_info', driver_id=driver.code) }}">
                     {{ driver.name }} ({{ driver.code }})
                 </a>

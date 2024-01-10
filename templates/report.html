@@ -3,9 +3,9 @@
 {% block title %}Formula 1 Q1 Report{% endblock %}
 
 {% block content %}
-    <h2>Formula 1 - Qualifying Q1 Results</h2>
-    <table>
-        <thead>
+    <h2 class="text-center">Formula 1 - Qualifying Q1 Results</h2>
+    <table class="table table-striped">
+        <thead class="thead-dark">
             <tr>
                 <th>Position</th>
                 <th>Name</th>
@@ -16,7 +16,7 @@
         </thead>
         <tbody>
             {% for driver in drivers %}
-                <tr class="{{ 'eliminated' if driver.eliminated }}">
+                <tr class="{{ 'table-danger' if driver.eliminated }}">
                     <td>{{ driver.position }}</td>
                     <td>{{ driver.name }}</td>
                     <td>{{ driver.team }}</td>
