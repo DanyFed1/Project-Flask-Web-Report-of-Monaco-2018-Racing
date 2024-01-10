@@ -3,13 +3,28 @@
 {% block title %}Formula 1 Q1 Report{% endblock %}
 
 {% block content %}
-    <h1>Formula 1 - Qualifying Q1 Results</h1>
-    <ul>
-        {% for driver in drivers %}
-            <li>{{ driver.position }}. {{ driver.name }} | {{ driver.team }} | {{ driver.lap_time }}</li>
-            {% if driver.eliminated %}
-                <li>------------------------------------ELIMINATED------------------------------------</li>
-            {% endif %}
-        {% endfor %}
-    </ul>
+    <h2>Formula 1 - Qualifying Q1 Results</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Position</th>
+                <th>Name</th>
+                <th>Team</th>
+                <th>Lap Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for driver in drivers %}
+                <tr class="{{ 'eliminated' if driver.eliminated }}">
+                    <td>{{ driver.position }}</td>
+                    <td>{{ driver.name }}</td>
+                    <td>{{ driver.team }}</td>
+                    <td>{{ driver.lap_time }}</td>
+                </tr>
+                {% if driver.eliminated %}
+                    <tr><td colspan="4" class="eliminated">ELIMINATED</td></tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

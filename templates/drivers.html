@@ -3,14 +3,14 @@
 {% block title %}Drivers List{% endblock %}
 
 {% block content %}
-<h1>Drivers List</h1>
+    <h2>Drivers List</h2>
     <ul>
         {% for driver in drivers %}
             <li>
                 <a href="{{ url_for('driver_info', driver_id=driver.code) }}">
                     {{ driver.name }} ({{ driver.code }})
                 </a>
-             </li>
+            </li>
         {% endfor %}
     </ul>
 {% endblock %}

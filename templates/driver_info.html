@@ -3,11 +3,18 @@
 {% block title %}Driver Information{% endblock %}
 
 {% block content %}
-
     {% if driver_info %}
-        <h1>{{ driver_info.name }}</h1>
-        <p>Team: {{ driver_info.team }}</p>
-        <p>Lap Time: {{ driver_info.lap_time }}</p>
+        <h2>{{ driver_info.name }}</h2>
+        <table>
+            <tr>
+                <th>Team</th>
+                <td>{{ driver_info.team }}</td>
+            </tr>
+            <tr>
+                <th>Lap Time</th>
+                <td>{{ driver_info.lap_time }}</td>
+            </tr>
+        </table>
     {% else %}
         <p>Driver information not found.</p>
     {% endif %}

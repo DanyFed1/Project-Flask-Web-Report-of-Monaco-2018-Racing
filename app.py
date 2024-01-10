@@ -7,7 +7,7 @@ app = Flask(__name__)
 processor = rpg.Q1Processor('./files')
 report_generator = rpg.Q1ReportGenerator(processor)
 
-@app.route('/report')
+@app.route('/report/')
 def report():
     order = request.args.get('order', 'asc')
     report_data = report_generator.get_report_data(order)
