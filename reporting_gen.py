@@ -134,7 +134,7 @@ class Q1ReportGenerator:
                 'name': driver.driver_name,
                 'team': driver.team,
                 'lap_time': str(driver.driver_lap_time) if driver.driver_lap_time else "NO TIME",
-                'eliminated': i > 15
+                'eliminated': (i > 15) if order == 'asc' else (i <= len(ranked_drivers) - 15)
             }
             report_data.append(driver_data)
         return report_data

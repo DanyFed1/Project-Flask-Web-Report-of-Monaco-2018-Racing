@@ -11,6 +11,7 @@
                 <th>Name</th>
                 <th>Team</th>
                 <th>Lap Time</th>
+                <th>Status</th>
             </tr>
         </thead>
         <tbody>
@@ -20,10 +21,8 @@
                     <td>{{ driver.name }}</td>
                     <td>{{ driver.team }}</td>
                     <td>{{ driver.lap_time }}</td>
+                    <td>{{ 'ELIMINATED' if driver.eliminated }}</td>
                 </tr>
-                {% if driver.eliminated %}
-                    <tr><td colspan="4" class="eliminated">ELIMINATED</td></tr>
-                {% endif %}
             {% endfor %}
         </tbody>
     </table>
