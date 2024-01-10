@@ -1,11 +1,9 @@
-<!-- templates_old/driver_info.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Driver Information</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}Driver Information{% endblock %}
+
+{% block content %}
+
     {% if driver_info %}
         <h1>{{ driver_info.name }}</h1>
         <p>Team: {{ driver_info.team }}</p>
@@ -13,5 +11,4 @@
     {% else %}
         <p>Driver information not found.</p>
     {% endif %}
-</body>
-</html>
+{% endblock %}

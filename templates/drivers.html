@@ -1,12 +1,9 @@
-<!-- templates_old/drivers.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Drivers List</title>
-</head>
-<body>
-    <h1>Drivers List</h1>
+{% extends 'base.html' %}
+
+{% block title %}Drivers List{% endblock %}
+
+{% block content %}
+<h1>Drivers List</h1>
     <ul>
         {% for driver in drivers %}
             <li>
@@ -16,5 +13,4 @@
              </li>
         {% endfor %}
     </ul>
-</body>
-</html>
+{% endblock %}

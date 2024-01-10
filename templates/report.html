@@ -1,11 +1,8 @@
-<!-- templates_old/report.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Formula 1 Q1 Report</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}Formula 1 Q1 Report{% endblock %}
+
+{% block content %}
     <h1>Formula 1 - Qualifying Q1 Results</h1>
     <ul>
         {% for driver in drivers %}
@@ -15,5 +12,4 @@
             {% endif %}
         {% endfor %}
     </ul>
-</body>
-</html>
+{% endblock %}
