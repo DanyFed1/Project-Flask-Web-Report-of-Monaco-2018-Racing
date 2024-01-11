@@ -1,7 +1,6 @@
 import sys
 import os
 
-# Add the parent directory to the Python path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from unittest.mock import patch, mock_open
@@ -115,6 +114,54 @@ class TestQ1ReportGenerator:
         info = report_generator.driver_info("Sebastian Vettel")
         assert "Sebastian Vettel" in info
         assert "FERRARI" in info
+
+    def test_get_report_data(self):
+        processor = rpg.Q1Processor("/some/path")
+        processor.drivers = {
+            "SVF": rpg.DriverLapInfo("SVF", datetime(2018, 5, 24, 12, 2, 58, 917), "Sebastian Vettel", "FERRARI"),
+            "NHR": rpg.DriverLapInfo("NHR", datetime(2018, 5, 24, 12, 2, 49, 914), "Nico Hulkenberg", "RENAULT")
+        }
+        processor.drivers["SVF"].end_time = datetime(2018, 5, 24, 12, 4, 3, 332)
+        processor.drivers["NHR"].end_time = datetime(2018, 5, 24, 12, 4, 2, 979)
+
+        report_generator = rpg.Q1ReportGenerator(processor)
+        report_data = report_generator.get_report_data('asc')
+        assert len(report_data) > 0
+        assert 'position' in report_data[0]
+        assert 'name' in report_data[0]
+        assert 'team' in report_data[0]
+        assert 'lap_time' in report_data[0]
+
+    def test_get_all_drivers(self):
+        processor = rpg.Q1Processor("/some/path")
+        processor.drivers = {
+            "SVF": rpg.DriverLapInfo("SVF", datetime(2018, 5, 24, 12, 2, 58, 917), "Sebastian Vettel", "FERRARI"),
+            "NHR": rpg.DriverLapInfo("NHR", datetime(2018, 5, 24, 12, 2, 49, 914), "Nico Hulkenberg", "RENAULT")
+        }
+        processor.drivers["SVF"].end_time = datetime(2018, 5, 24, 12, 4, 3, 332)
+        processor.drivers["NHR"].end_time = datetime(2018, 5, 24, 12, 4, 2, 979)
+
+        report_generator = rpg.Q1ReportGenerator(processor)
+        drivers = report_generator.get_all_drivers()
+        assert len(drivers) > 0
+        assert 'code' in drivers[0]
+        assert 'name' in drivers[0]
+        assert 'team' in drivers[0]
+
+    def test_get_driver_info(self):
+        processor = rpg.Q1Processor("/some/path")
+        # Populate processor with sample data
+        processor.drivers = {
+            "SVF": rpg.DriverLapInfo("SVF", datetime(2018, 5, 24, 12, 2, 58, 917))
+        }
+        processor.drivers["SVF"].end_time = datetime(2018, 5, 24, 12, 4, 3, 332)
+        processor.drivers["SVF"].driver_name = "Sebastian Vettel"
+        processor.drivers["SVF"].team = "FERRARI"
+
+        report_generator = rpg.Q1ReportGenerator(processor)
+        driver_info = report_generator.get_driver_info("SVF")
+        assert driver_info['name'] == "Sebastian Vettel"
+        assert driver_info['team'] == "FERRARI"
 
 #Usage:
 # export PYTHONPATH=$PYTHONPATH:$(pwd)
