@@ -1,0 +1,1 @@
+Project is a continuation of a previous project where I did create a simple pacakge that generates F1 qualifying reporting out of input files. Here I transferred the functionality of the package to a webapp using flask. 
